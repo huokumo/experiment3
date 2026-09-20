@@ -6,6 +6,7 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
@@ -14,7 +15,10 @@ def generate_launch_description():
     world = package_dir / "worlds" / "indoor_mapping.world"
     robot_xacro = package_dir / "urdf" / "differential_robot.urdf.xacro"
 
-    robot_description = Command(["xacro ", str(robot_xacro)])
+    robot_description = ParameterValue(
+        Command(["xacro ", str(robot_xacro)]),
+        value_type=str,
+    )
 
     return LaunchDescription([
         IncludeLaunchDescription(
