@@ -19,9 +19,9 @@ EXPECTED_TOPICS = {
 }
 
 EXPECTED_TRANSFORMS = {
-    "camera_link": (0.22, 0.0, 0.38),
-    "mid360_link": (0.0, 0.0, 0.42),
-    "imu_link": (-0.15, 0.0, 0.34),
+    "camera_link": (0.38, 0.0, 0.68),
+    "mid360_link": (0.0, 0.0, 0.68),
+    "imu_link": (-0.28, 0.0, 0.59),
 }
 
 

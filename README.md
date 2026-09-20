@@ -82,7 +82,7 @@ Add the following block below the `STEP 1` comment in
   parent="base_link"
   frame="camera_link"
   optical_frame="camera_optical_frame"
-  xyz="0.22 0 0.38"
+  xyz="0.38 0 0.68"
   rpy="0 0 0"
   image_topic="/camera/image_raw"
   info_topic="/camera/camera_info"
@@ -104,7 +104,7 @@ Add the following block below the `STEP 2` comment:
 <xacro:install_lidar
   parent="base_link"
   frame="mid360_link"
-  xyz="0 0 0.42"
+  xyz="0 0 0.68"
   rpy="0 0 0"
   topic="/mid360/points"
   update_rate="10.0"/>
@@ -124,7 +124,7 @@ Add the following block below the `STEP 3` comment:
 <xacro:install_imu
   parent="base_link"
   frame="imu_link"
-  xyz="-0.15 0 0.34"
+  xyz="-0.28 0 0.59"
   rpy="0 0 0"
   topic="/imu/data"
   update_rate="100.0"/>

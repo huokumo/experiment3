@@ -3,12 +3,27 @@
   <xacro:macro name="install_camera"
                params="parent frame optical_frame xyz rpy image_topic info_topic update_rate">
     <link name="${frame}">
-      <visual>
-        <geometry><box size="0.06 0.04 0.03"/></geometry>
-        <material name="black"/>
+      <visual name="camera_body">
+        <geometry><box size="0.14 0.10 0.08"/></geometry>
+        <material name="sensor_black"/>
+      </visual>
+      <visual name="camera_face">
+        <origin xyz="0.076 0 0"/>
+        <geometry><box size="0.015 0.09 0.07"/></geometry>
+        <material name="deck_gray"/>
+      </visual>
+      <visual name="camera_lens">
+        <origin xyz="0.095 0 0" rpy="0 1.57079632679 0"/>
+        <geometry><cylinder radius="0.032" length="0.04"/></geometry>
+        <material name="lens_blue"/>
+      </visual>
+      <visual name="camera_bracket">
+        <origin xyz="-0.035 0 -0.075"/>
+        <geometry><box size="0.035 0.08 0.08"/></geometry>
+        <material name="deck_gray"/>
       </visual>
       <collision>
-        <geometry><box size="0.06 0.04 0.03"/></geometry>
+        <geometry><box size="0.14 0.10 0.08"/></geometry>
       </collision>
       <inertial>
         <mass value="0.10"/>
@@ -63,11 +78,25 @@
                params="parent frame xyz rpy topic update_rate">
     <link name="${frame}">
       <visual>
-        <geometry><cylinder radius="0.045" length="0.07"/></geometry>
-        <material name="gray"/>
+        <geometry><cylinder radius="0.08" length="0.11"/></geometry>
+        <material name="sensor_black"/>
+      </visual>
+      <visual name="lidar_scan_band">
+        <geometry><cylinder radius="0.084" length="0.045"/></geometry>
+        <material name="lens_blue"/>
+      </visual>
+      <visual name="lidar_cap">
+        <origin xyz="0 0 0.065"/>
+        <geometry><cylinder radius="0.065" length="0.025"/></geometry>
+        <material name="deck_gray"/>
+      </visual>
+      <visual name="lidar_mount">
+        <origin xyz="0 0 -0.095"/>
+        <geometry><cylinder radius="0.045" length="0.08"/></geometry>
+        <material name="deck_gray"/>
       </visual>
       <collision>
-        <geometry><cylinder radius="0.045" length="0.07"/></geometry>
+        <geometry><cylinder radius="0.08" length="0.11"/></geometry>
       </collision>
       <inertial>
         <mass value="0.25"/>
@@ -122,12 +151,22 @@
   <xacro:macro name="install_imu"
                params="parent frame xyz rpy topic update_rate">
     <link name="${frame}">
-      <visual>
-        <geometry><box size="0.06 0.04 0.02"/></geometry>
-        <material name="black"/>
+      <visual name="imu_body">
+        <geometry><box size="0.12 0.09 0.04"/></geometry>
+        <material name="sensor_black"/>
+      </visual>
+      <visual name="imu_top">
+        <origin xyz="0 0 0.023"/>
+        <geometry><box size="0.10 0.07 0.008"/></geometry>
+        <material name="deck_gray"/>
+      </visual>
+      <visual name="imu_forward_marker">
+        <origin xyz="0.045 0 0.031"/>
+        <geometry><box size="0.045 0.012 0.009"/></geometry>
+        <material name="axis_red"/>
       </visual>
       <collision>
-        <geometry><box size="0.06 0.04 0.02"/></geometry>
+        <geometry><box size="0.12 0.09 0.04"/></geometry>
       </collision>
       <inertial>
         <mass value="0.10"/>
