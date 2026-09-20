@@ -45,6 +45,7 @@
     </joint>
 
     <gazebo reference="${frame}">
+      <material>Gazebo/Black</material>
       <sensor name="camera_sensor" type="camera">
         <always_on>true</always_on>
         <visualize>false</visualize>
@@ -111,6 +112,7 @@
     </joint>
 
     <gazebo reference="${frame}">
+      <material>Gazebo/DarkGrey</material>
       <sensor name="mid360_lidar" type="ray">
         <always_on>true</always_on>
         <visualize>false</visualize>
@@ -181,6 +183,7 @@
     </joint>
 
     <gazebo reference="${frame}">
+      <material>Gazebo/Grey</material>
       <sensor name="imu_sensor" type="imu">
         <always_on>true</always_on>
         <visualize>false</visualize>
