@@ -116,7 +116,7 @@ Expected topic:
 /mid360/points
 ```
 
-The teaching model uses 360 horizontal samples and 16 vertical channels at
+The teaching model uses 240 horizontal samples and 12 vertical channels at
 10 Hz. This keeps the point cloud three-dimensional while remaining practical
 on a classroom virtual machine.
 
