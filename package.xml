@@ -3,7 +3,7 @@
 <package format="3">
   <name>experiment3</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Template-based Gazebo sensor installation lab for ROS 2 Humble.</description>
   <maintainer email="uas@todo.todo">uas</maintainer>
   <license>TODO: License declaration</license>
 
@@ -11,10 +11,15 @@
 
   <depend>ament_cmake</depend>
   <depend>gazebo_ros</depend>
+  <depend>gazebo_plugins</depend>
   <depend>robot_state_publisher</depend>
   <depend>xacro</depend>
   <depend>launch</depend>
   <depend>launch_ros</depend>
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2_ros</depend>
+  <exec_depend>rviz2</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

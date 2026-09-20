@@ -1,94 +1,196 @@
 # experiment3
 
+ROS 2 Humble and Gazebo Classic lab for installing and configuring simulated
+camera, 3D lidar, and IMU sensors on a differential-drive robot.
 
-## 环境前提
+The repository has one learning path and one robot model. The initial model
+contains only the mobile base. Students edit the same Xacro file and install
+the three sensors in sequence by calling ready-made macros.
 
-实验默认使用已经配置好的：
+## Environment
 
 - Ubuntu 22.04
 - ROS 2 Humble
 - Gazebo Classic 11
 - RViz2
+- VS Code (`code` command)
 
-本仓库不重复提供 Ubuntu、ROS 2 或 Gazebo 的安装步骤。开始实验前，请确认当前终端已经加载 ROS 2：
-
-```bash
-source /opt/ros/humble/setup.bash
-```
-
-## 工程说明
-
-ROS 2 工作空间：
+Workspace used by the course image:
 
 ```text
-~/experiment3_ws
+/root/exp3/experiment3_ws
 ```
 
-课程功能包：
+Package directory:
 
 ```text
-experiment3
+/root/exp3/experiment3_ws/src/experiment3
 ```
 
-实验一使用 Gazebo Classic 室内差速移动机器人，包含仿真相机、Mid-360-like 三维点云和 IMU 数据链路，并通过 RViz 完成可视化检查和故障诊断。
-
-## 编译
-
-将本仓库放入工作空间的 `src/experiment3` 后执行：
+## Build
 
 ```bash
-cd ~/experiment3_ws
+cd /root/exp3/experiment3_ws
 source /opt/ros/humble/setup.bash
+
+rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install --packages-select experiment3
 source install/setup.bash
 ```
 
-## 实验一
-
-学生指导书位于：
-
-```text
-实验/实验1/仿真传感器安装配置与故障诊断.md
-```
-
-正常仿真：
+## Open the project in VS Code
 
 ```bash
+cd /root/exp3/experiment3_ws/src/experiment3
+code .
+```
+
+When VS Code refuses to run as root, use:
+
+```bash
+code . --no-sandbox --user-data-dir=/root/.vscode-root
+```
+
+All student edits are made in:
+
+```text
+urdf/differential_robot.urdf.xacro
+```
+
+Do not edit `robot_base_macro.xacro` or `sensor_macros.xacro` during the lab.
+
+## Initial state
+
+Start the base robot before installing sensors:
+
+```bash
+source /opt/ros/humble/setup.bash
+source /root/exp3/experiment3_ws/install/setup.bash
 ros2 launch experiment3 sim.launch.py
 ```
 
-双故障仿真：
+Gazebo should show the mobile robot and indoor world. Sensor topics are absent
+because no sensor macro has been called yet.
 
-```bash
-ros2 launch experiment3 sim_fault_double.launch.py
+## Step 1: Install the camera
+
+Add the following block below the `STEP 1` comment in
+`differential_robot.urdf.xacro`:
+
+```xml
+<xacro:install_camera
+  parent="base_link"
+  frame="camera_link"
+  optical_frame="camera_optical_frame"
+  xyz="0.22 0 0.38"
+  rpy="0 0 0"
+  image_topic="/camera/image_raw"
+  info_topic="/camera/camera_info"
+  update_rate="10.0"/>
 ```
 
-双故障版本同时模拟两个配置问题：激光雷达不发布 `/mid360/points`，以及机器人基座坐标系名称异常。请先按实验指导书记录现象，再修改故障版本并完成重新编译、重启和复测。
-
-RViz 配置：
-
-```bash
-rviz2 -d ~/experiment3_ws/src/experiment3/config/experiment3.rviz
-```
-
-实际传感器话题：
+Expected topics:
 
 ```text
-/camera/depth_camera/image_raw
-/camera/depth_camera/camera_info
+/camera/image_raw
+/camera/camera_info
+```
+
+## Step 2: Install the 3D lidar
+
+Add the following block below the `STEP 2` comment:
+
+```xml
+<xacro:install_lidar
+  parent="base_link"
+  frame="mid360_link"
+  xyz="0 0 0.42"
+  rpy="0 0 0"
+  topic="/mid360/points"
+  update_rate="10.0"/>
+```
+
+Expected topic:
+
+```text
 /mid360/points
+```
+
+## Step 3: Install the IMU
+
+Add the following block below the `STEP 3` comment:
+
+```xml
+<xacro:install_imu
+  parent="base_link"
+  frame="imu_link"
+  xyz="-0.15 0 0.34"
+  rpy="0 0 0"
+  topic="/imu/data"
+  update_rate="100.0"/>
+```
+
+Expected topic:
+
+```text
 /imu/data
 ```
 
-## 目录约定
+## Rebuild and restart after each step
 
-```text
-experiment3/
-├── launch/       # 正常和故障启动文件
-├── urdf/         # 机器人与传感器模型
-├── worlds/       # Gazebo 场景
-├── config/       # RViz 和参数文件
-└── 实验/          # 学生实验指导书
+Stop Gazebo with `Ctrl+C`, then run:
+
+```bash
+cd /root/exp3/experiment3_ws
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install --packages-select experiment3
+source install/setup.bash
+ros2 launch experiment3 sim.launch.py
 ```
 
+## Visual verification
 
+After installing all three sensors, start RViz in another terminal:
+
+```bash
+source /opt/ros/humble/setup.bash
+source /root/exp3/experiment3_ws/install/setup.bash
+rviz2 -d /root/exp3/experiment3_ws/src/experiment3/config/experiment3.rviz
+```
+
+The configuration uses:
+
+```text
+Fixed Frame: base_link
+PointCloud2: /mid360/points
+Image: /camera/image_raw
+```
+
+## Automatic acceptance check
+
+Keep Gazebo running, then execute in another terminal:
+
+```bash
+source /opt/ros/humble/setup.bash
+source /root/exp3/experiment3_ws/install/setup.bash
+ros2 run experiment3 verify_installation.py
+```
+
+The check verifies four standard topics and three sensor transforms. A complete
+installation reports:
+
+```text
+Result: 7/7 passed
+```
+
+## Files students should understand
+
+```text
+urdf/differential_robot.urdf.xacro  # one file edited during the lab
+urdf/robot_base_macro.xacro         # ready-made mobile base
+urdf/sensor_macros.xacro            # ready-made sensor templates
+launch/sim.launch.py                # one launch entry point
+config/experiment3.rviz             # ready-made visualization
+scripts/verify_installation.py      # final automatic check
+worlds/indoor_mapping.world         # indoor simulation world
+```
