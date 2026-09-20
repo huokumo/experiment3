@@ -5,12 +5,12 @@
       <visual name="tire">
         <origin rpy="1.57079632679 0 0"/>
         <geometry><cylinder radius="${radius}" length="${width}"/></geometry>
-        <material name="tire_black"/>
+        <material name="${name}_tire_black"><color rgba="0.015 0.015 0.02 1"/></material>
       </visual>
       <visual name="outer_hub">
         <origin xyz="0 ${side * (width / 2 + 0.009)} 0" rpy="1.57079632679 0 0"/>
         <geometry><cylinder radius="${radius * 0.48}" length="0.018"/></geometry>
-        <material name="hub_silver"/>
+        <material name="${name}_hub_silver"><color rgba="0.72 0.76 0.80 1"/></material>
       </visual>
       <collision>
         <origin rpy="1.57079632679 0 0"/>
@@ -38,62 +38,51 @@
     <xacro:property name="wheel_width" value="0.12"/>
     <xacro:property name="wheel_separation" value="0.82"/>
 
-    <material name="body_blue"><color rgba="0.04 0.22 0.62 1"/></material>
-    <material name="body_dark"><color rgba="0.025 0.055 0.10 1"/></material>
-    <material name="deck_gray"><color rgba="0.32 0.38 0.44 1"/></material>
-    <material name="tire_black"><color rgba="0.015 0.015 0.02 1"/></material>
-    <material name="hub_silver"><color rgba="0.72 0.76 0.80 1"/></material>
-    <material name="sensor_black"><color rgba="0.025 0.03 0.035 1"/></material>
-    <material name="lens_blue"><color rgba="0.03 0.35 0.68 1"/></material>
-    <material name="light_white"><color rgba="1.0 0.92 0.60 1"/></material>
-    <material name="light_red"><color rgba="0.75 0.02 0.02 1"/></material>
-    <material name="axis_red"><color rgba="0.90 0.05 0.05 1"/></material>
-
     <link name="base_link">
       <visual name="lower_chassis">
         <origin xyz="0 0 0.27"/>
         <geometry><box size="${base_length} ${base_width} ${base_height}"/></geometry>
-        <material name="body_blue"/>
+        <material name="body_blue"><color rgba="0.04 0.22 0.62 1"/></material>
       </visual>
       <visual name="upper_body">
         <origin xyz="-0.06 0 0.43"/>
         <geometry><box size="0.78 0.58 0.12"/></geometry>
-        <material name="body_dark"/>
+        <material name="upper_body_dark"><color rgba="0.025 0.055 0.10 1"/></material>
       </visual>
       <visual name="sensor_deck">
         <origin xyz="0.02 0 0.515"/>
         <geometry><box size="0.64 0.48 0.05"/></geometry>
-        <material name="deck_gray"/>
+        <material name="deck_gray"><color rgba="0.32 0.38 0.44 1"/></material>
       </visual>
       <visual name="front_bumper">
         <origin xyz="0.575 0 0.23"/>
         <geometry><box size="0.05 0.76 0.16"/></geometry>
-        <material name="body_dark"/>
+        <material name="front_bumper_dark"><color rgba="0.025 0.055 0.10 1"/></material>
       </visual>
       <visual name="rear_bumper">
         <origin xyz="-0.575 0 0.23"/>
         <geometry><box size="0.05 0.76 0.16"/></geometry>
-        <material name="body_dark"/>
+        <material name="rear_bumper_dark"><color rgba="0.025 0.055 0.10 1"/></material>
       </visual>
       <visual name="left_headlight">
         <origin xyz="0.606 0.22 0.30" rpy="0 1.57079632679 0"/>
         <geometry><cylinder radius="0.045" length="0.018"/></geometry>
-        <material name="light_white"/>
+        <material name="left_headlight_white"><color rgba="1.0 0.92 0.60 1"/></material>
       </visual>
       <visual name="right_headlight">
         <origin xyz="0.606 -0.22 0.30" rpy="0 1.57079632679 0"/>
         <geometry><cylinder radius="0.045" length="0.018"/></geometry>
-        <material name="light_white"/>
+        <material name="right_headlight_white"><color rgba="1.0 0.92 0.60 1"/></material>
       </visual>
       <visual name="left_taillight">
         <origin xyz="-0.606 0.22 0.30" rpy="0 1.57079632679 0"/>
         <geometry><cylinder radius="0.035" length="0.018"/></geometry>
-        <material name="light_red"/>
+        <material name="left_taillight_red"><color rgba="0.75 0.02 0.02 1"/></material>
       </visual>
       <visual name="right_taillight">
         <origin xyz="-0.606 -0.22 0.30" rpy="0 1.57079632679 0"/>
         <geometry><cylinder radius="0.035" length="0.018"/></geometry>
-        <material name="light_red"/>
+        <material name="right_taillight_red"><color rgba="0.75 0.02 0.02 1"/></material>
       </visual>
       <collision>
         <origin xyz="0 0 0.27"/>
@@ -118,12 +107,12 @@
       <visual name="caster_fork">
         <origin xyz="0 0 0.225"/>
         <geometry><cylinder radius="0.075" length="0.19"/></geometry>
-        <material name="hub_silver"/>
+        <material name="caster_hub_silver"><color rgba="0.72 0.76 0.80 1"/></material>
       </visual>
       <visual name="caster_wheel">
         <origin xyz="0 0 0.13" rpy="1.57079632679 0 0"/>
         <geometry><cylinder radius="0.13" length="0.09"/></geometry>
-        <material name="tire_black"/>
+        <material name="caster_tire_black"><color rgba="0.015 0.015 0.02 1"/></material>
       </visual>
       <collision>
         <origin xyz="0 0 0.13"/>
@@ -141,11 +130,6 @@
       <child link="caster_link"/>
       <origin xyz="-0.43 0 0"/>
     </joint>
-
-    <gazebo reference="base_link"><material>Gazebo/Blue</material></gazebo>
-    <gazebo reference="left_wheel_link"><material>Gazebo/Black</material></gazebo>
-    <gazebo reference="right_wheel_link"><material>Gazebo/Black</material></gazebo>
-    <gazebo reference="caster_link"><material>Gazebo/Black</material></gazebo>
 
     <gazebo>
       <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
