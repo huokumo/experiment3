@@ -36,16 +36,23 @@
       xyz="-0.035 0 -0.075" rpy="0 0 0" size="0.035 0.08 0.08"
       gazebo_material="Gazebo/Grey" rgba="0.32 0.38 0.44 1"/>
 
-    <link name="${optical_frame}"/>
-    <joint name="${optical_frame}_joint" type="fixed">
+    <!-- A dedicated link preserves the lens offset during URDF-to-SDF fixed-joint reduction. -->
+    <link name="${frame}_sensor_link"/>
+    <joint name="${frame}_sensor_joint" type="fixed">
       <parent link="${frame}"/>
-      <child link="${optical_frame}"/>
-      <origin xyz="0.13 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+      <child link="${frame}_sensor_link"/>
+      <origin xyz="0.13 0 0" rpy="0 0 0"/>
     </joint>
 
-    <gazebo reference="${frame}">
+    <link name="${optical_frame}"/>
+    <joint name="${optical_frame}_joint" type="fixed">
+      <parent link="${frame}_sensor_link"/>
+      <child link="${optical_frame}"/>
+      <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+    </joint>
+
+    <gazebo reference="${frame}_sensor_link">
       <sensor name="camera_sensor" type="camera">
-        <pose>0.13 0 0 0 0 0</pose>
         <always_on>true</always_on>
         <visualize>false</visualize>
         <update_rate>${update_rate}</update_rate>

@@ -173,9 +173,10 @@ Image: /camera/image_raw
 The indoor world includes red, green, and blue targets in front of the robot so
 the RGB camera output can be distinguished from a monochrome image.
 
-The optical frame and Gazebo camera origin are placed 0.13 m in front of the
-camera body, immediately outside the lens, so the housing cannot occlude the
-simulated image.
+The optical frame and Gazebo camera use a dedicated fixed child link placed
+0.13 m in front of the camera body. Keeping the offset in a joint ensures that
+Gazebo preserves it while reducing fixed joints, so the housing cannot occlude
+the simulated image.
 
 ## Automatic acceptance check
 
