@@ -170,6 +170,9 @@ PointCloud2: /mid360/points
 Image: /camera/image_raw
 ```
 
+The indoor world includes red, green, and blue targets in front of the robot so
+the RGB camera output can be distinguished from a monochrome image.
+
 ## Automatic acceptance check
 
 Keep Gazebo running, then execute in another terminal:

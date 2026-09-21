@@ -252,5 +252,59 @@
         </visual>
       </link>
     </model>
+    <model name="camera_color_target_red">
+      <static>true</static>
+      <pose>3.5 0.65 0.70 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.10 0.50 0.70</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.10 0.50 0.70</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="camera_color_target_green">
+      <static>true</static>
+      <pose>3.5 0 0.70 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.10 0.50 0.70</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.10 0.50 0.70</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="camera_color_target_blue">
+      <static>true</static>
+      <pose>3.5 -0.65 0.70 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.10 0.50 0.70</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.10 0.50 0.70</size></box></geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
   </world>
 </sdf>
