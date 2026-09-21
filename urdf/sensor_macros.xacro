@@ -40,11 +40,12 @@
     <joint name="${optical_frame}_joint" type="fixed">
       <parent link="${frame}"/>
       <child link="${optical_frame}"/>
-      <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
+      <origin xyz="0.13 0 0" rpy="-1.57079632679 0 -1.57079632679"/>
     </joint>
 
     <gazebo reference="${frame}">
       <sensor name="camera_sensor" type="camera">
+        <pose>0.13 0 0 0 0 0</pose>
         <always_on>true</always_on>
         <visualize>false</visualize>
         <update_rate>${update_rate}</update_rate>

@@ -149,7 +149,7 @@ Visualization Manager:
       Max Value: 1
       Median window: 5
       Min Value: 0
-      Name: Image
+      Name: RGB Camera
       Normalize Range: true
       Topic:
         Depth: 5
